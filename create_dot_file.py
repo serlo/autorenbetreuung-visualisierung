@@ -36,6 +36,9 @@ def main(contacts, output):
     for person in filter(lambda p: p.should_display(), persons):
         output.write("%s[label=\"%s\"];\n" % (person.id, person.name))
 
+        if person.guide:
+            output.write("%s -> %s;\n" % (hash(person.guide), person.id))
+
     output.write("}\n")
 
 if __name__ == "__main__":

@@ -18,13 +18,15 @@ class Person:
     def __init__(self, row):
         self.row = row
         self.name = self.row[0]
+        self.status = self.row[9]
+        self.guide = self.row[8]
 
     @property
     def id(self):
         return hash(self.name)
 
     def should_display(self):
-        return True
+        return self.status == "aktiv" or (self.status == "" and self.guide)
 
 def main(contacts, output):
     persons = [Person(row) for row in csv.reader(contacts)][1:]

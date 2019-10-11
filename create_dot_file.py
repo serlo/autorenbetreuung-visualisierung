@@ -32,6 +32,7 @@ def main(contacts, output):
     persons = [Person(row) for row in csv.reader(contacts)][1:]
 
     output.write("digraph G {\n")
+    output.write("graph [layout=neato,overlap=false];\n")
 
     for person in filter(lambda p: p.should_display(), persons):
         output.write("%s[label=\"%s\"];\n" % (person.id, person.name))

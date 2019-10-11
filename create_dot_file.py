@@ -3,7 +3,15 @@ import sys
 import hashlib
 
 def hash(text):
-	return hashlib.sha1(bytes(text, "utf-8")).hexdigest()
+	result = hashlib.sha1(bytes(text, "utf-8")).hexdigest()
+
+	for number, letter in {
+		"0": "g", "1": "h", "2": "i", "3": "j", "4": "k",
+		"5": "l", "6": "m", "7": "n", "8": "o", "9": "p"
+	}.items():
+		result = result.replace(number, letter)
+
+	return result
 
 class Person:
 
@@ -22,10 +30,10 @@ class Person:
 def main(contacts, output):
 	persons = [Person(row) for row in csv.reader(contacts)][1:]
 	
-	output.write("diagraph G {\n")
+	output.write("digraph G {\n")
 	
 	for person in filter(lambda p: p.should_display(), persons):
-		output.write("%s[label='%s'];\n" % (person.id, person.name))
+		output.write("%s[label=\"%s\"];\n" % (person.id, person.name))
 	
 	output.write("}\n")
 
